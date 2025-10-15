@@ -17,6 +17,7 @@ header {
   }
 
   .logo {
+    overflow: hidden;
     img {
       width: auto;
       height: 32px;
@@ -25,6 +26,7 @@ header {
   }
 
   .btn-slideshow {
+    overflow: hidden;
     @include text-preset-5-mobile;
     color: $color-grey-400;
     background: transparent;
@@ -41,7 +43,7 @@ header {
     margin: 0 auto;
     .line {
       width: calc(100% - $spacing-500 * 2);
-      left: unset
+      left: unset;
     }
     .btn-slideshow {
       @include text-preset-6;

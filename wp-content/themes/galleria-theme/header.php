@@ -34,7 +34,9 @@
         </div>
 
         <button class="btn-slideshow" type="button">
-            START SLIDESHOW
+            <div class="btn-slideshow-text">
+                START SLIDESHOW
+            </div>
         </button>
         <div class="line">
 

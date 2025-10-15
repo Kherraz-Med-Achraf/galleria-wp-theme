@@ -10,7 +10,7 @@ function galleria_enqueue_assets()
     //smoothscroll
     wp_enqueue_script('smoothscroll', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js', [], null, true);
 
-    wp_enqueue_script('galleria-main', get_template_directory_uri() . '/dist/js/main.js', ['gsap'], '1.0', true);
+    wp_enqueue_script('galleria-main', get_template_directory_uri() . '/assets/js/main.js', ['gsap'], '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'galleria_enqueue_assets');
 

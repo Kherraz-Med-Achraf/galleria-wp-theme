@@ -159,12 +159,16 @@ header .line {
   left: 0;
   background-color: #e5e5e5;
 }
+header .logo {
+  overflow: hidden;
+}
 header .logo img {
   width: auto;
   height: 32px;
   object-fit: contain;
 }
 header .btn-slideshow {
+  overflow: hidden;
   font-family: "Libre Baskerville", serif;
   font-weight: 700;
   font-size: 9px;
