@@ -1,0 +1,277 @@
+// ========================================
+// DESIGN SYSTEM
+// ========================================
+
+// ========================================
+// COLORS
+// ========================================
+
+// Base Colors
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Grey Scale
+$color-grey-400: #7d7d7d;
+$color-grey-200: #d8d8d8;
+$color-grey-150: #e5e5e5;
+$color-grey-100: #f3f3f3;
+
+// Gradient
+$gradient-1: linear-gradient(
+  180deg,
+  rgba(0, 0, 0, 0) 0%,
+  rgba(0, 0, 0, 0.84) 100%
+);
+
+// ========================================
+// SPACING
+// ========================================
+
+$spacing-0: 0px;
+$spacing-100: 8px;
+$spacing-200: 16px;
+$spacing-300: 24px;
+$spacing-400: 32px;
+$spacing-500: 40px;
+$spacing-700: 56px;
+$spacing-800: 64px;
+$spacing-1000: 80px;
+$spacing-1200: 96px;
+
+// Spacing Map (pour une utilisation avec des boucles ou fonctions)
+$spacings: (
+  0: $spacing-0,
+  100: $spacing-100,
+  200: $spacing-200,
+  300: $spacing-300,
+  400: $spacing-400,
+  500: $spacing-500,
+  700: $spacing-700,
+  800: $spacing-800,
+  1000: $spacing-1000,
+  1200: $spacing-1200,
+);
+
+// ========================================
+// TYPOGRAPHY
+// ========================================
+
+// Font Family
+$font-primary: "Libre Baskerville", serif;
+
+// Font Weights
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+// ========================================
+// TEXT PRESETS (Desktop)
+// ========================================
+
+@mixin text-preset-1 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 200px;
+  line-height: 115%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-2 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 56px;
+  line-height: 115%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-3 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 24px;
+  line-height: 125%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-4 {
+  font-family: $font-primary;
+  font-weight: $font-weight-regular;
+  font-size: 18px;
+  line-height: 135%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-5 {
+  font-family: $font-primary;
+  font-weight: $font-weight-regular;
+  font-size: 15px;
+  line-height: 125%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-6 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 12px;
+  line-height: 125%;
+  letter-spacing: 2.5px;
+}
+
+@mixin text-preset-7 {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: 2px;
+}
+
+// ========================================
+// TEXT PRESETS (Mobile)
+// ========================================
+
+@mixin text-preset-1-mobile {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 100px;
+  line-height: 100%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-2-mobile {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 40px;
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-3-mobile {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 24px;
+  line-height: 200%;
+  letter-spacing: -0.75px;
+}
+
+@mixin text-preset-4-mobile {
+  font-family: $font-primary;
+  font-weight: $font-weight-regular;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@mixin text-preset-5-mobile {
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  font-size: 9px;
+  line-height: 125%;
+  letter-spacing: 2px;
+}
+
+// ========================================
+// TYPOGRAPHY UTILITY CLASSES
+// ========================================
+
+.text-preset-1 {
+  @include text-preset-1;
+}
+
+.text-preset-2 {
+  @include text-preset-2;
+}
+
+.text-preset-3 {
+  @include text-preset-3;
+}
+
+.text-preset-4 {
+  @include text-preset-4;
+}
+
+.text-preset-5 {
+  @include text-preset-5;
+}
+
+.text-preset-6 {
+  @include text-preset-6;
+}
+
+.text-preset-7 {
+  @include text-preset-7;
+}
+
+// Mobile classes (à utiliser dans des media queries)
+@media (max-width: 768px) {
+  .text-preset-1-mobile {
+    @include text-preset-1-mobile;
+  }
+
+  .text-preset-2-mobile {
+    @include text-preset-2-mobile;
+  }
+
+  .text-preset-3-mobile {
+    @include text-preset-3-mobile;
+  }
+
+  .text-preset-4-mobile {
+    @include text-preset-4-mobile;
+  }
+
+  .text-preset-5-mobile {
+    @include text-preset-5-mobile;
+  }
+}
+
+// ========================================
+// COLOR UTILITY CLASSES
+// ========================================
+
+.color-white {
+  color: $color-white;
+}
+.color-black {
+  color: $color-black;
+}
+.color-grey-400 {
+  color: $color-grey-400;
+}
+.color-grey-200 {
+  color: $color-grey-200;
+}
+.color-grey-150 {
+  color: $color-grey-150;
+}
+.color-grey-100 {
+  color: $color-grey-100;
+}
+
+.bg-white {
+  background-color: $color-white;
+}
+.bg-black {
+  background-color: $color-black;
+}
+.bg-grey-400 {
+  background-color: $color-grey-400;
+}
+.bg-grey-200 {
+  background-color: $color-grey-200;
+}
+.bg-grey-150 {
+  background-color: $color-grey-150;
+}
+.bg-grey-100 {
+  background-color: $color-grey-100;
+}
+
+.bg-gradient-1 {
+  background: $gradient-1;
+}
+
+// ========================================
+// max width
+// ========================================
+
+$max-width-mobile: 375px;
+$max-width-tablet: 768px;
+$max-width-desktop: 1440px;

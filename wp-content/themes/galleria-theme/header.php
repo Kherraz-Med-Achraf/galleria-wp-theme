@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-<head>
-  <meta charset="<?php bloginfo('charset'); ?>">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
 
-  <?php wp_head(); ?>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php wp_title('|', true, 'right');
+    bloginfo('name'); ?></title>
+
+    <!-- Google Fonts - Libre Baskerville -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+    <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
 
-  <header class="site-header fade-in">
-    <div class="container header-inner">
-      <div class="logo">
-        <a href="<?php echo esc_url(home_url('/')); ?>">
-          <?php 
-            // Logo personnalisé via le Customizer ou un fallback
-            if ( has_custom_logo() ) {
-              the_custom_logo();
-            } else {
-              bloginfo('name');
-            }
-          ?>
-        </a>
-      </div>
+    <header class="fade-in">
+        <div class="logo">
+            <a href="<?php echo esc_url(home_url('/')); ?>">
+                <?php
+                // Logo personnalisé via le Customizer ou un fallback
+                if (has_custom_logo()) {
+                    the_custom_logo();
+                } else {
+                    // Fallback sur une image par défaut
+                    $fallback_logo = get_template_directory_uri() . '/assets/images/galleria.svg';
+                    echo '<img src="' . esc_url($fallback_logo) . '" alt="' . esc_attr(get_bloginfo('name')) . '" class="custom-logo">';
+                }
+                ?>
+            </a>
+        </div>
 
-      <nav class="site-nav">
-        <?php
-          wp_nav_menu([
-            'theme_location' => 'main-menu',
-            'container' => false,
-            'menu_class' => 'nav-list',
-            'fallback_cb' => false
-          ]);
-        ?>
-      </nav>
-    </div>
-  </header>
+        <button class="btn-slideshow" type="button">
+            START SLIDESHOW
+        </button>
+        <div class="line">
 
-  <div class="site-content">
+        </div>
+    </header>
+
+    <div class="site-content">
