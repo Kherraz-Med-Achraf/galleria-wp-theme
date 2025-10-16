@@ -6,7 +6,9 @@ function galleria_enqueue_assets()
 
     // GSAP + ton JS
     wp_enqueue_script('gsap', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', [], null, true);
-    wp_enqueue_script('gsap-scrolltrigger', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js', ['gsap'], null, true);
+    wp_enqueue_script('gsap-scrolltrigger', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js', ['gsap'], null, true);
+    //flip
+    wp_enqueue_script('flip', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js', ['gsap'], null, true);
     //smoothscroll
     wp_enqueue_script('smoothscroll', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js', [], null, true);
 

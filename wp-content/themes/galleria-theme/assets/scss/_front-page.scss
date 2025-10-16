@@ -1,0 +1,71 @@
+@use "design-system" as *;
+
+.artworks-list {
+  width: 100%;
+  position: relative;
+  padding: $spacing-300 $spacing-400;
+  column-count: 1;
+  max-width: 375px;
+  margin: 0 auto;
+  .artwork-card {
+    opacity: 0; // On masque les cartes pour l'animation d'entrée en JS
+    position: relative;
+    break-inside: avoid;
+    margin-bottom: $spacing-500;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $gradient-1;
+      z-index: 1;
+    }
+
+    .artwork-thumb {
+      img {
+        width: 100%;
+        height: auto; // crucial pour la hauteur dynamique
+        display: block; // supprime l'espace blanc sous l'image
+      }
+    }
+
+    .artwork-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: $spacing-400;
+      z-index: 2;
+      color: $color-white;
+
+      .artwork-title {
+        @include text-preset-3;
+        margin-bottom: $spacing-100;
+      }
+
+      .artwork-meta {
+        @include text-preset-5;
+        font-weight: $font-weight-regular;
+        opacity: 0.75;
+      }
+    }
+  }
+}
+
+@media (min-width: $max-width-tablet) {
+  .artworks-list {
+    max-width: $max-width-tablet;
+    column-count: 2;
+    gap: $spacing-500;
+  }
+}
+
+@media (min-width: $max-width-desktop) {
+  .artworks-list {
+    max-width: $max-width-desktop;
+    column-count: 4;
+    gap: $spacing-500;
+  }
+}
