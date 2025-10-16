@@ -74,7 +74,21 @@ document.addEventListener("DOMContentLoaded", function () {
       container.style.position = "relative";
       const gap = 40;
 
-      const containerWidth = container.offsetWidth;
+      let padding, leftOffset, topOffset;
+
+      if (window.innerWidth >= desktopBreakpoint) {
+        // Desktop
+        padding = 80;
+        leftOffset = 40;
+        topOffset = 40;
+      } else {
+        // Tablet
+        padding = 108;
+        leftOffset = 54;
+        topOffset = 42;
+      }
+
+      const containerWidth = container.offsetWidth - padding; // 108px is the padding of the container
       const totalGapWidth = (numColumns - 1) * gap;
       const colWidth = (containerWidth - totalGapWidth) / numColumns;
 
@@ -86,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         item.style.position = "absolute";
         item.style.width = `${colWidth}px`;
-        item.style.left = `${colIndex * (colWidth + gap)}px`;
-        item.style.top = `${minHeight}px`;
+        item.style.left = `${colIndex * (colWidth + gap) + leftOffset}px`;
+        item.style.top = `${minHeight + topOffset}px`;
 
         columnHeights[colIndex] += item.offsetHeight + gap;
       });

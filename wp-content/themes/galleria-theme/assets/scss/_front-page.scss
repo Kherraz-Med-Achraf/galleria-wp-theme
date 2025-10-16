@@ -56,16 +56,16 @@
 
 @media (min-width: $max-width-tablet) {
   .artworks-list {
+    padding: 42px 54px;
     max-width: $max-width-tablet;
     column-count: 2;
-    gap: $spacing-500;
   }
 }
 
 @media (min-width: $max-width-desktop) {
   .artworks-list {
+    padding: $spacing-500;
     max-width: $max-width-desktop;
     column-count: 4;
-    gap: $spacing-500;
   }
 }
