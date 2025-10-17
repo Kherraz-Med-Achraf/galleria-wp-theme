@@ -2,7 +2,6 @@
 
 <footer class="site-footer fade-in">
   <div class="container footer-inner">
-    <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> — Tous droits réservés.</p>
 
     <nav class="footer-nav">
       <?php

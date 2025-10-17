@@ -1,0 +1,267 @@
+@use "design-system" as *;
+
+.artwork-detail {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: $spacing-300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  max-width: $max-width-mobile;
+  margin: 0 auto 100px auto;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .detail-image-wrapper {
+    width: 100%;
+    position: relative;
+    margin-bottom: 112px;
+    .artwork-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .title-wrapper {
+      position: absolute;
+      top: 224px;
+      left: 0;
+      width: 232px;
+      padding: 23px 26px 23px 24px;
+      background-color: $color-white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: $spacing-100;
+      .title {
+        @include text-preset-2-mobile;
+      }
+      .artist {
+        @include text-preset-4;
+        color: $color-grey-400;
+      }
+    }
+    .artist-image {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      top: 328px;
+      left: 16px;
+      object-fit: contain;
+    }
+  }
+
+  .detail-info {
+    margin-top: 49px;
+    position: relative;
+    .year {
+      position: absolute;
+      @include text-preset-1-mobile;
+      color: $color-grey-100;
+      top: -64px;
+      right: 0;
+      z-index: -1;
+    }
+    .detail-description {
+      @include text-preset-3-mobile;
+      color: $color-grey-400;
+      margin-bottom: $spacing-800;
+    }
+    .detail-source {
+      @include text-preset-5-mobile;
+      color: $color-grey-400;
+      text-decoration: none;
+    }
+  }
+}
+
+.slide-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-200 $spacing-300;
+  z-index: 100;
+  .progress-bar-place {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $color-grey-150;
+  }
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 1px;
+    background-color: $color-black;
+  }
+  .artwork-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    .artwork-title {
+      @include text-preset-3-mobile;
+      color: $color-black;
+    }
+    .artwork-artist {
+      @include text-preset-4-mobile;
+      color: $color-black;
+      font-size: 10px;
+    }
+  }
+  .artwork-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-300;
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+
+      &.disabled {
+        opacity: 0.15;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@media (min-width: $max-width-tablet) {
+  .artwork-detail {
+    padding: $spacing-800;
+    max-width: $max-width-tablet;
+    .detail-image-wrapper {
+      margin-bottom: 64px;
+      .artwork-image {
+        width: 475px;
+        height: 500px;
+      }
+      .title-wrapper {
+        top: 0px;
+        left: 243px;
+        width: 380px;
+        padding: 0px 0px 65px 64px;
+        gap: $spacing-300;
+        .title {
+          @include text-preset-2;
+        }
+        .artist {
+          @include text-preset-4;
+          color: $color-grey-400;
+        }
+      }
+      .artist-image {
+        width: 128px;
+        height: 128px;
+        top: 236px;
+        left: 503px;
+        object-fit: contain;
+      }
+    }
+    .detail-info {
+      margin-top: 74px;
+      .year {
+        position: absolute;
+        @include text-preset-1;
+        color: $color-grey-100;
+        top: -74px;
+        left: 0;
+        z-index: -1;
+      }
+      .detail-description {
+        width: 457px;
+        margin: 0 auto $spacing-500 auto;
+      }
+      .detail-source {
+        display: block;
+        width: 457px;
+        margin: 0 auto;
+      }
+    }
+  }
+  .slide-controls {
+    padding: $spacing-300 $spacing-500;
+    .artwork-data {
+      gap: $spacing-100;
+      .artwork-title {
+        @include text-preset-3;
+        font-size: 18px;
+      }
+      .artwork-artist {
+        @include text-preset-5;
+        font-size: 13px;
+      }
+    }
+    .artwork-navigation {
+      gap: $spacing-500;
+      button {
+        img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $max-width-desktop) {
+  .artwork-detail {
+    max-width: $max-width-desktop;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .detail-image-wrapper {
+      width: fit-content;
+      .artwork-image {
+        height: 560px;
+      }
+      .title-wrapper {
+        left: 403px;
+      }
+      .artist-image {
+        top: 496px;
+        left: 499px;
+        object-fit: contain;
+      }
+    }
+    .detail-info {
+      margin-top: 110px;
+      width: 475px;
+      .year {
+        position: absolute;
+        top: -110px;
+      }
+      .detail-description {
+        width: 350px;
+        margin: 0 0 108px 0;
+      }
+    }
+  }
+  .slide-controls {
+    padding: 25px $spacing-500;
+    .artwork-data {
+      .artwork-title {
+        @include text-preset-3;
+        font-size: 18px;
+      }
+    }
+  }
+}

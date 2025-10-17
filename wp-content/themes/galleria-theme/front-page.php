@@ -15,7 +15,11 @@
             <?php while ($artworks->have_posts()):
                 $artworks->the_post(); ?>
 
-                <article class="artwork-card fade-in" data-id="<?php the_ID(); ?>">
+                <article class="artwork-card fade-in" data-id="<?php the_ID(); ?>" data-id="<?php the_ID(); ?>"
+                    data-title="<?php the_title(); ?>" data-artist="<?php the_field('artist'); ?>"
+                    data-year="<?php the_field('year'); ?>"
+                    data-description="<?php echo esc_attr(strip_tags(get_field('description'))); ?>"
+                    data-image="<?php echo esc_url(get_field('hero_image_large')); ?>">
                     <div class="artwork-thumb">
                         <?php
                         $thumb = get_field('thumbnail');
@@ -35,6 +39,8 @@
             <?php endwhile;
             wp_reset_postdata(); ?>
         </div>
+
+        <?php get_template_part('template-parts/artwork-detail'); ?>
 
     <?php else: ?>
         <p>No artworks found.</p>

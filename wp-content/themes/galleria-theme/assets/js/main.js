@@ -140,6 +140,63 @@ document.addEventListener("DOMContentLoaded", function () {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(applyMasonryLayout, 150);
   });
+
+  // animation artwork detail
+  const cards = document.querySelectorAll(".artwork-card");
+  const detail = document.querySelector("#artwork-detail");
+  const detailImg = detail.querySelector(".detail-image");
+  const detailTitle = detail.querySelector(".detail-title");
+  const detailMeta = detail.querySelector(".detail-meta");
+  const detailDesc = detail.querySelector(".detail-description");
+  const backBtn = detail.querySelector(".detail-back");
+
+  let lastState = null;
+  let activeCard = null;
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      activeCard = card;
+
+      // 1. Capture current state
+      const image = card.querySelector("img");
+      const state = Flip.getState(image);
+
+      // 2. Update detail content
+      detailImg.src = card.dataset.image;
+      detailTitle.textContent = card.dataset.title;
+      detailMeta.textContent = `${card.dataset.artist}, ${card.dataset.year}`;
+      detailDesc.textContent = card.dataset.description;
+
+      // 3. Move image into detail view
+      detail.classList.add("active");
+      detail.querySelector(".detail-image-wrapper").appendChild(image);
+
+      // 4. Animate the Flip
+      Flip.from(state, {
+        duration: 0.8,
+        ease: "power2.inOut",
+        scale: true,
+      });
+    });
+  });
+
+  // Back to gallery
+  backBtn.addEventListener("click", () => {
+    if (!activeCard) return;
+
+    const image = detailImg;
+    const state = Flip.getState(image);
+
+    // Move image back to its card
+    activeCard.querySelector(".artwork-thumb").appendChild(image);
+    detail.classList.remove("active");
+
+    Flip.from(state, {
+      duration: 0.6,
+      ease: "power2.inOut",
+      scale: true,
+    });
+  });
 });
 
 // animation artworks list
