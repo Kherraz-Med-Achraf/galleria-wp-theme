@@ -40,7 +40,6 @@
       width: 100%;
       height: 280px;
       object-fit: cover;
-      cursor: pointer;
     }
     .title-wrapper {
       position: absolute;
@@ -77,6 +76,36 @@
       height: 64px;
       object-fit: contain;
     }
+    .open-gallery {
+      background-color: transparent;
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      .open-gallery-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $spacing-200;
+        background-color: $color-black;
+        padding: 14px $spacing-200;
+      }
+      img {
+        width: 12px;
+        height: 12px;
+      }
+      span {
+        @include text-preset-7;
+        color: $color-white;
+        font-size: 10px;
+      }
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+    }
   }
 
   .detail-info {
@@ -102,6 +131,10 @@
       color: $color-grey-400;
       text-decoration: none;
       overflow: hidden;
+      transition: color 0.3s ease;
+      &:hover {
+        color: $color-black;
+      }
     }
   }
 }
@@ -160,6 +193,13 @@
       img {
         width: 16px;
         height: 16px;
+        transition: opacity 0.3s ease, scale 0.3s ease;
+      }
+      &:hover {
+        img {
+          opacity: 0.5;
+          scale: 1.2;
+        }
       }
 
       &.disabled {
@@ -206,6 +246,10 @@
       .artist-image {
         width: 128px;
         height: 128px;
+      }
+      .open-gallery {
+        top: unset;
+        bottom: 16px;
       }
     }
     .detail-info {
@@ -308,7 +352,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.85);
   z-index: 1000;
   display: none;
   justify-content: center;
@@ -322,25 +366,24 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.3s ease;
-    z-index: 1001;
+    z-index: 9999;
 
-    svg {
-      width: 24px;
-      height: 24px;
-      stroke: $color-white;
-      transition: stroke 0.3s ease;
+    .material-icons {
+      font-size: 48px;
+      color: $color-white;
+      transition: color 0.3s ease;
     }
 
     &:hover {
       transform: rotate(90deg);
-      svg {
-        stroke: $color-grey-150;
+      .material-icons {
+        color: $color-grey-150;
       }
     }
   }
@@ -360,12 +403,11 @@
     .close-gallery {
       top: $spacing-500;
       right: $spacing-500;
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
 
-      svg {
-        width: 30px;
-        height: 30px;
+      .material-icons {
+        font-size: 56px;
       }
     }
 

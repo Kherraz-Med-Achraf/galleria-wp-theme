@@ -179,6 +179,10 @@ header .btn-slideshow {
   border: none;
   cursor: pointer;
   text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+header .btn-slideshow:hover {
+  color: #000000;
 }
 
 @media (min-width: 768px) {
@@ -324,7 +328,6 @@ header .btn-slideshow {
   width: 100%;
   height: 280px;
   object-fit: cover;
-  cursor: pointer;
 }
 .artwork-detail .detail-image-wrapper .title-wrapper {
   position: absolute;
@@ -369,6 +372,42 @@ header .btn-slideshow {
   height: 64px;
   object-fit: contain;
 }
+.artwork-detail .detail-image-wrapper .open-gallery {
+  background-color: transparent;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+.artwork-detail .detail-image-wrapper .open-gallery .open-gallery-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background-color: #000000;
+  padding: 14px 16px;
+}
+.artwork-detail .detail-image-wrapper .open-gallery img {
+  width: 12px;
+  height: 12px;
+}
+.artwork-detail .detail-image-wrapper .open-gallery span {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-size: 10px;
+}
+.artwork-detail .detail-image-wrapper .open-gallery {
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+.artwork-detail .detail-image-wrapper .open-gallery:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
 .artwork-detail .detail-info {
   margin-top: 49px;
   position: relative;
@@ -405,6 +444,10 @@ header .btn-slideshow {
   color: #7d7d7d;
   text-decoration: none;
   overflow: hidden;
+  transition: color 0.3s ease;
+}
+.artwork-detail .detail-info .detail-source:hover {
+  color: #000000;
 }
 
 .slide-controls {
@@ -472,6 +515,11 @@ header .btn-slideshow {
 .slide-controls .artwork-navigation button img {
   width: 16px;
   height: 16px;
+  transition: opacity 0.3s ease, scale 0.3s ease;
+}
+.slide-controls .artwork-navigation button:hover img {
+  opacity: 0.5;
+  scale: 1.2;
 }
 .slide-controls .artwork-navigation button.disabled {
   opacity: 0.15;
@@ -524,6 +572,10 @@ header .btn-slideshow {
   .artwork-detail .detail-image-wrapper .artist-image {
     width: 128px;
     height: 128px;
+  }
+  .artwork-detail .detail-image-wrapper .open-gallery {
+    top: unset;
+    bottom: 16px;
   }
   .artwork-detail .detail-info {
     margin-top: 74px;
@@ -633,7 +685,7 @@ header .btn-slideshow {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.85);
   z-index: 1000;
   display: none;
   justify-content: center;
@@ -647,25 +699,24 @@ header .btn-slideshow {
   background: transparent;
   border: none;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
-  z-index: 1001;
+  z-index: 9999;
 }
-.gallery-modal .close-gallery svg {
-  width: 24px;
-  height: 24px;
-  stroke: #ffffff;
-  transition: stroke 0.3s ease;
+.gallery-modal .close-gallery .material-icons {
+  font-size: 48px;
+  color: #ffffff;
+  transition: color 0.3s ease;
 }
 .gallery-modal .close-gallery:hover {
   transform: rotate(90deg);
 }
-.gallery-modal .close-gallery:hover svg {
-  stroke: #e5e5e5;
+.gallery-modal .close-gallery:hover .material-icons {
+  color: #e5e5e5;
 }
 .gallery-modal .gallery-image {
   max-width: 90%;
@@ -681,12 +732,11 @@ header .btn-slideshow {
   .gallery-modal .close-gallery {
     top: 40px;
     right: 40px;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
   }
-  .gallery-modal .close-gallery svg {
-    width: 30px;
-    height: 30px;
+  .gallery-modal .close-gallery .material-icons {
+    font-size: 56px;
   }
   .gallery-modal .gallery-image {
     max-width: 85%;

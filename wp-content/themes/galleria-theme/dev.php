@@ -58,6 +58,11 @@
                         <img class="artist-image" src="<?php echo esc_url($first_artwork['artist_image']); ?>"
                             alt="<?php echo esc_attr($first_artwork['artist']); ?>">
                     </div>
+                    <button class="open-gallery">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/icon-view-image.svg"
+                            alt="Open Gallery">
+                        <span>VIEW IMAGE</span>
+                    </button>
                 </div>
                 <div class="detail-info">
                     <span class="year"><?php echo esc_html($first_artwork['year']); ?></span>

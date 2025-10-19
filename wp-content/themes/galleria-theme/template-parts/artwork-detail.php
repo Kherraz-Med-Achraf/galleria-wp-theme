@@ -11,6 +11,14 @@
         <div class="artist-image-wrapper">
             <img class="artist-image" src="" alt="">
         </div>
+        <button class="open-gallery">
+            <div class="open-gallery-wrapper">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/icon-view-image.svg"
+                    alt="Open Gallery">
+                <span>VIEW IMAGE</span>
+
+            </div>
+        </button>
     </div>
     <div class="detail-info">
         <span class="year"></span>
@@ -24,10 +32,9 @@
 <!-- Gallery Modal - Plein écran -->
 <div class="gallery-modal" id="gallery-modal">
     <button class="close-gallery" aria-label="Fermer la galerie">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <span class="material-icons">close</span>
     </button>
+
     <img class="gallery-image" src="" alt="">
 </div>
 

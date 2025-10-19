@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const description = detailSection.querySelector(".detail-description");
     const artistImage = detailSection.querySelector(".artist-image");
     const sourceLink = detailSection.querySelector(".detail-source");
+    const openGalleryBtn = detailSection.querySelector(".open-gallery-wrapper");
 
     const slideTitle = slideControls.querySelector(".artwork-title");
     const slideArtist = slideControls.querySelector(".artwork-artist");
@@ -99,6 +100,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     let sourceLinkSplit = new SplitText(sourceLink, {
       type: "words,lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+    let slideTitleSplit = new SplitText(slideTitle, {
+      type: "words, lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+    let slideArtistSplit = new SplitText(slideArtist, {
+      type: "words, lines",
       wordsClass: "word",
       linesClass: "line",
     });
@@ -157,10 +168,37 @@ document.addEventListener("DOMContentLoaded", function () {
       "<"
     );
     tlOut.to(
+      openGalleryBtn,
+      {
+        y: 40,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
       sourceLinkSplit.words,
       {
         y: 15,
         duration: 0.3,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      slideTitleSplit.words,
+      {
+        y: 80,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      slideArtistSplit.words,
+      {
+        y: 30,
+        duration: 1,
         ease: "expo.out",
       },
       "<"
@@ -171,6 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
       yearSplit.revert();
       descriptionSplit.revert();
       sourceLinkSplit.revert();
+      slideTitleSplit.revert();
+      slideArtistSplit.revert();
 
       // --- Change Data ---
       const heroImage = getHeroImage(card);
@@ -194,7 +234,11 @@ document.addEventListener("DOMContentLoaded", function () {
       slideArtist.textContent = card.dataset.artist;
 
       const progressPercent = ((index + 1) / artworkCards.length) * 100;
-      progressBar.style.width = `${progressPercent}%`;
+      gsap.to(progressBar, {
+        width: `${progressPercent}%`,
+        duration: 1,
+        ease: "expo.out",
+      });
 
       updateNavigationButtons();
 
@@ -225,7 +269,16 @@ document.addEventListener("DOMContentLoaded", function () {
               linesClass: "line",
             })
           : null;
-
+      let newSlideTitleSplit = new SplitText(slideTitle, {
+        type: "words, lines",
+        wordsClass: "word",
+        linesClass: "line",
+      });
+      let newSlideArtistSplit = new SplitText(slideArtist, {
+        type: "words, lines",
+        wordsClass: "word",
+        linesClass: "line",
+      });
       // --- GSAP Animation In ---
       const tlIn = gsap.timeline();
 
@@ -236,6 +289,9 @@ document.addEventListener("DOMContentLoaded", function () {
       gsap.set(newYearSplit.words, { y: 250 });
       gsap.set(newDescriptionSplit.words, { y: 30 });
       gsap.set(artistImage, { yPercent: 100 });
+      gsap.set(openGalleryBtn, { y: 40 });
+      gsap.set(newSlideTitleSplit.words, { y: 80 });
+      gsap.set(newSlideArtistSplit.words, { y: 30 });
       if (newSourceLinkSplit) {
         gsap.set(newSourceLinkSplit.words, { y: 15 });
       }
@@ -297,6 +353,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         "<"
       );
+      tlIn.to(
+        openGalleryBtn,
+        {
+          y: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
       if (newSourceLinkSplit) {
         tlIn.to(
           newSourceLinkSplit.words,
@@ -308,6 +373,24 @@ document.addEventListener("DOMContentLoaded", function () {
           "<"
         );
       }
+      tlIn.to(
+        newSlideTitleSplit.words,
+        {
+          y: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
+      tlIn.to(
+        newSlideArtistSplit.words,
+        {
+          y: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
     });
   }
 
@@ -512,29 +595,27 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!galleryModal || !galleryImage || !closeGalleryBtn) return;
 
   // Ouvrir la galerie au clic sur l'image
-  detailSection
-    .querySelector(".artwork-image")
-    .addEventListener("click", () => {
-      const currentCard = artworkCards[currentArtworkIndex];
-      const galleryImageUrl = currentCard.dataset.galleryImage;
+  detailSection.querySelector(".open-gallery").addEventListener("click", () => {
+    const currentCard = artworkCards[currentArtworkIndex];
+    const galleryImageUrl = currentCard.dataset.galleryImage;
 
-      if (galleryImageUrl) {
-        galleryImage.src = galleryImageUrl;
+    if (galleryImageUrl) {
+      galleryImage.src = galleryImageUrl;
 
-        // Animation d'ouverture de la galerie
-        gsap.set(galleryModal, { display: "flex" });
-        gsap.fromTo(
-          galleryModal,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4, ease: "power2.out" }
-        );
-        gsap.fromTo(
-          galleryImage,
-          { scale: 0.9 },
-          { scale: 1, duration: 0.5, ease: "back.out(1.2)" }
-        );
-      }
-    });
+      // Animation d'ouverture de la galerie
+      gsap.set(galleryModal, { display: "flex" });
+      gsap.fromTo(
+        galleryModal,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        galleryImage,
+        { scale: 0.9 },
+        { scale: 1, duration: 0.5, ease: "back.out(1.2)" }
+      );
+    }
+  });
 
   // Fermer la galerie
   function closeGallery() {
