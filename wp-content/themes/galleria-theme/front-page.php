@@ -15,11 +15,20 @@
             <?php while ($artworks->have_posts()):
                 $artworks->the_post(); ?>
 
-                <article class="artwork-card fade-in" data-id="<?php the_ID(); ?>" data-id="<?php the_ID(); ?>"
-                    data-title="<?php the_title(); ?>" data-artist="<?php the_field('artist'); ?>"
-                    data-year="<?php the_field('year'); ?>"
-                    data-description="<?php echo esc_attr(strip_tags(get_field('description'))); ?>"
-                    data-image="<?php echo esc_url(get_field('hero_image_large')); ?>">
+                <article class="artwork-card fade-in"
+                 data-id="<?php the_ID(); ?>"
+                 data-title="<?php the_title(); ?>"
+                 data-artist="<?php the_field('artist'); ?>"
+                 data-year="<?php the_field('year'); ?>"
+                 data-description="<?php echo esc_attr(strip_tags(get_field('description'))); ?>"
+                 data-image="<?php echo esc_url(get_field('hero_image_large')); ?>"
+                 data-source="<?php echo esc_url(get_field('source')); ?>"
+                 data-hero-large="<?php echo esc_url(get_field('hero_image_large')); ?>"
+                 data-hero-small="<?php echo esc_url(get_field('hero_image_small')); ?>"
+                 data-gallery-image="<?php echo esc_url(get_field('gallery_image')); ?>"
+                 data-artist-image="<?php echo esc_url(get_field('artist_image')); ?>"
+                 >
+                 
                     <div class="artwork-thumb">
                         <?php
                         $thumb = get_field('thumbnail');

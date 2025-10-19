@@ -8,10 +8,13 @@
   max-width: 375px;
   margin: 0 auto;
   .artwork-card {
-    opacity: 0; // On masque les cartes pour l'animation d'entrée en JS
+    opacity: 0; 
+    transform: scale(0);
     position: relative;
     break-inside: avoid;
     margin-bottom: $spacing-500;
+    cursor: pointer;
+
     &::after {
       content: "";
       position: absolute;

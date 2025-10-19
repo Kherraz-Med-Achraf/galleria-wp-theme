@@ -1,38 +1,8 @@
-// Enregistrer les plugins GSAP en premier
-gsap.registerPlugin(Flip);
-
-//Animation Header
-
+// ========== MASONRY LAYOUT WITH FLIP ANIMATION ==========
 document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.querySelector(".logo img");
-  const btnSlideshow = document.querySelector(".btn-slideshow-text");
-  const line = document.querySelector(".line");
+  // Enregistrer le plugin Flip
+  gsap.registerPlugin(Flip);
 
-  gsap.set([logo, btnSlideshow], {
-    y: 55,
-  });
-
-  const HeaderAnimation = gsap.timeline();
-
-  HeaderAnimation.to([logo, btnSlideshow], {
-    y: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "expo.out",
-    delay: 0.5,
-  }).from(
-    ".line",
-    {
-      width: "0%",
-      duration: 1.5,
-      ease: "expo.out",
-    },
-    "<0.3"
-  );
-
-  HeaderAnimation.play();
-
-  // animation artworks list (Masonry with Flip)
   const container = document.querySelector(".artworks-list");
 
   if (!container) return;
@@ -115,9 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       // Au premier chargement, on ne fait qu'une animation d'apparition (fade in)
       gsap.to(items, {
         opacity: 1,
+        scale: 1,
         duration: 0.8,
         stagger: 0.05,
         ease: "power3.out",
+        delay: 0.5,
       });
       isFirstLoad = false;
     } else {
@@ -140,63 +112,4 @@ document.addEventListener("DOMContentLoaded", function () {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(applyMasonryLayout, 150);
   });
-
-  // animation artwork detail
-  const cards = document.querySelectorAll(".artwork-card");
-  const detail = document.querySelector("#artwork-detail");
-  const detailImg = detail.querySelector(".detail-image");
-  const detailTitle = detail.querySelector(".detail-title");
-  const detailMeta = detail.querySelector(".detail-meta");
-  const detailDesc = detail.querySelector(".detail-description");
-  const backBtn = detail.querySelector(".detail-back");
-
-  let lastState = null;
-  let activeCard = null;
-
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      activeCard = card;
-
-      // 1. Capture current state
-      const image = card.querySelector("img");
-      const state = Flip.getState(image);
-
-      // 2. Update detail content
-      detailImg.src = card.dataset.image;
-      detailTitle.textContent = card.dataset.title;
-      detailMeta.textContent = `${card.dataset.artist}, ${card.dataset.year}`;
-      detailDesc.textContent = card.dataset.description;
-
-      // 3. Move image into detail view
-      detail.classList.add("active");
-      detail.querySelector(".detail-image-wrapper").appendChild(image);
-
-      // 4. Animate the Flip
-      Flip.from(state, {
-        duration: 0.8,
-        ease: "power2.inOut",
-        scale: true,
-      });
-    });
-  });
-
-  // Back to gallery
-  backBtn.addEventListener("click", () => {
-    if (!activeCard) return;
-
-    const image = detailImg;
-    const state = Flip.getState(image);
-
-    // Move image back to its card
-    activeCard.querySelector(".artwork-thumb").appendChild(image);
-    detail.classList.remove("active");
-
-    Flip.from(state, {
-      duration: 0.6,
-      ease: "power2.inOut",
-      scale: true,
-    });
-  });
 });
-
-// animation artworks list

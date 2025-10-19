@@ -219,9 +219,11 @@ header .btn-slideshow {
 }
 .artworks-list .artwork-card {
   opacity: 0;
+  transform: scale(0);
   position: relative;
   break-inside: avoid;
   margin-bottom: 40px;
+  cursor: pointer;
 }
 .artworks-list .artwork-card::after {
   content: "";
@@ -292,10 +294,6 @@ header .btn-slideshow {
   max-width: 375px;
   margin: 0 auto 100px auto;
 }
-.artwork-detail.active {
-  opacity: 1;
-  pointer-events: auto;
-}
 .artwork-detail .detail-image-wrapper {
   width: 100%;
   position: relative;
@@ -305,6 +303,12 @@ header .btn-slideshow {
   width: 100%;
   height: 280px;
   object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.artwork-detail .detail-image-wrapper .artwork-image:hover {
+  transform: scale(1.02);
+  filter: brightness(0.95);
 }
 .artwork-detail .detail-image-wrapper .title-wrapper {
   position: absolute;
@@ -377,6 +381,7 @@ header .btn-slideshow {
 }
 
 .slide-controls {
+  transform: translateY(100px);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -587,10 +592,86 @@ header .btn-slideshow {
     font-size: 18px;
   }
 }
+.gallery-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+.gallery-modal .close-gallery {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+.gallery-modal .close-gallery svg {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  transition: stroke 0.3s ease;
+}
+.gallery-modal .close-gallery:hover {
+  transform: rotate(90deg);
+}
+.gallery-modal .close-gallery:hover svg {
+  stroke: #e5e5e5;
+}
+.gallery-modal .gallery-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+  .gallery-modal {
+    padding: 40px;
+  }
+  .gallery-modal .close-gallery {
+    top: 40px;
+    right: 40px;
+    width: 50px;
+    height: 50px;
+  }
+  .gallery-modal .close-gallery svg {
+    width: 30px;
+    height: 30px;
+  }
+  .gallery-modal .gallery-image {
+    max-width: 85%;
+    max-height: 85%;
+  }
+}
+@media (min-width: 1440px) {
+  .gallery-modal .gallery-image {
+    max-width: 80%;
+    max-height: 80%;
+  }
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
 }
 
 /*# sourceMappingURL=main.css.map */
