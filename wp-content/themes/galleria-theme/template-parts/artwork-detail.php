@@ -1,12 +1,16 @@
 <!-- Detail view modal - Sera remplie dynamiquement lors du clic sur une artwork -->
 <div class="artwork-detail" id="artwork-detail">
     <div class="detail-image-wrapper">
-        <img class="artwork-image" src="" alt="" title="Cliquez pour voir en plein écran">
+        <div class="artwork-image-wrapper">
+            <img class="artwork-image" src="" alt="" title="Cliquez pour voir en plein écran">
+        </div>
         <div class="title-wrapper">
             <h2 class="title"></h2>
             <p class="artist"></p>
         </div>
-        <img class="artist-image" src="" alt="">
+        <div class="artist-image-wrapper">
+            <img class="artist-image" src="" alt="">
+        </div>
     </div>
     <div class="detail-info">
         <span class="year"></span>

@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return isMobile ? card.dataset.heroSmall : card.dataset.heroLarge;
   }
 
-  // Fonction pour remplir les détails
-  function fillArtworkDetail(card, index) {
+  // Fonction pour remplir les détails (sans animation - utilisée pour l'ouverture initiale)
+  function fillArtworkDetailInitial(card, index) {
     currentArtworkIndex = index;
 
     // Récupérer l'image appropriée selon la taille d'écran
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     detailSection.querySelector(".title").textContent = card.dataset.title;
     detailSection.querySelector(".artist").textContent = card.dataset.artist;
     detailSection.querySelector(".year").textContent = card.dataset.year;
-    detailSection.querySelector(".detail-description").textContent =
+    detailSection.querySelector(".detail-description").innerHTML =
       card.dataset.description;
     detailSection.querySelector(".artist-image").src = card.dataset.artistImage;
 
@@ -59,6 +59,256 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mettre à jour les boutons de navigation
     updateNavigationButtons();
+  }
+
+  // Fonction pour remplir les détails avec animation de transition
+  function fillArtworkDetail(card, index) {
+    currentArtworkIndex = index;
+
+    const artworkImage = detailSection.querySelector(".artwork-image");
+    const title = detailSection.querySelector(".title");
+    const artist = detailSection.querySelector(".artist");
+    const year = detailSection.querySelector(".year");
+    const description = detailSection.querySelector(".detail-description");
+    const artistImage = detailSection.querySelector(".artist-image");
+    const sourceLink = detailSection.querySelector(".detail-source");
+
+    const slideTitle = slideControls.querySelector(".artwork-title");
+    const slideArtist = slideControls.querySelector(".artwork-artist");
+    const progressBar = slideControls.querySelector(".progress-bar");
+
+    // Créer les SplitText pour l'animation out
+    let titleSplit = new SplitText(title, {
+      type: "words, lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+    let artistSplit = new SplitText(artist, {
+      type: "words, lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+    let yearSplit = new SplitText(year, {
+      type: "words",
+      wordsClass: "word",
+    });
+    let descriptionSplit = new SplitText(description, {
+      type: "words,lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+    let sourceLinkSplit = new SplitText(sourceLink, {
+      type: "words,lines",
+      wordsClass: "word",
+      linesClass: "line",
+    });
+
+    // --- GSAP Animation Out ---
+    const tlOut = gsap.timeline();
+
+    tlOut.to(artworkImage, {
+      yPercent: 100,
+      duration: 1,
+      ease: "expo.out",
+    });
+    tlOut.to(
+      titleSplit.words,
+      {
+        y: 80,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      artistSplit.words,
+      {
+        y: 30,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      yearSplit.words,
+      {
+        y: 250,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      descriptionSplit.words,
+      {
+        y: 30,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      artistImage,
+      {
+        yPercent: 100,
+        duration: 1,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.to(
+      sourceLinkSplit.words,
+      {
+        y: 15,
+        duration: 0.3,
+        ease: "expo.out",
+      },
+      "<"
+    );
+    tlOut.add(() => {
+      titleSplit.revert();
+      artistSplit.revert();
+      yearSplit.revert();
+      descriptionSplit.revert();
+      sourceLinkSplit.revert();
+
+      // --- Change Data ---
+      const heroImage = getHeroImage(card);
+      artworkImage.src = heroImage;
+      artworkImage.alt = card.dataset.title;
+      title.textContent = card.dataset.title;
+      artist.textContent = card.dataset.artist;
+      year.textContent = card.dataset.year;
+      description.innerHTML = card.dataset.description;
+      artistImage.src = card.dataset.artistImage;
+      artistImage.alt = card.dataset.artist;
+
+      if (card.dataset.source) {
+        sourceLink.href = card.dataset.source;
+        sourceLink.style.display = "block";
+      } else {
+        sourceLink.style.display = "none";
+      }
+
+      slideTitle.textContent = card.dataset.title;
+      slideArtist.textContent = card.dataset.artist;
+
+      const progressPercent = ((index + 1) / artworkCards.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      updateNavigationButtons();
+
+      let newTitleSplit = new SplitText(title, {
+        type: "words, lines",
+        wordsClass: "word",
+        linesClass: "line",
+      });
+      let newArtistSplit = new SplitText(artist, {
+        type: "words, lines",
+        wordsClass: "word",
+        linesClass: "line",
+      });
+      let newYearSplit = new SplitText(year, {
+        type: "words",
+        wordsClass: "word",
+      });
+      let newDescriptionSplit = new SplitText(description, {
+        type: "words,lines",
+        wordsClass: "word",
+        linesClass: "line",
+      });
+      let newSourceLinkSplit =
+        sourceLink.style.display !== "none"
+          ? new SplitText(sourceLink, {
+              type: "words,lines",
+              wordsClass: "word",
+              linesClass: "line",
+            })
+          : null;
+
+      // --- GSAP Animation In ---
+      const tlIn = gsap.timeline();
+
+      // Set initial state for the "in" animation (elements are off-screen below)
+      gsap.set(artworkImage, { yPercent: 100 });
+      gsap.set(newTitleSplit.words, { y: 80 });
+      gsap.set(newArtistSplit.words, { y: 30 });
+      gsap.set(newYearSplit.words, { y: 250 });
+      gsap.set(newDescriptionSplit.words, { y: 30 });
+      gsap.set(artistImage, { yPercent: 100 });
+      if (newSourceLinkSplit) {
+        gsap.set(newSourceLinkSplit.words, { y: 15 });
+      }
+
+      //scroll to the top of the page
+      window.scrollTo(0, 0);
+
+      tlIn.to(artworkImage, {
+        yPercent: 0,
+        duration: 0.5,
+        ease: "expo.out",
+      });
+      tlIn.add(() => {
+        newTitleSplit.lines.forEach((line, i) => {
+          const words = line.querySelectorAll(".word");
+          gsap.to(words, {
+            y: 0,
+            duration: 1,
+            ease: "expo.out",
+            delay: i * 0.15,
+          });
+        });
+      }, "<");
+      tlIn.to(
+        newArtistSplit.words,
+        {
+          y: 0,
+          stagger: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
+      tlIn.to(
+        newYearSplit.words,
+        {
+          y: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
+      tlIn.to(
+        newDescriptionSplit.words,
+        {
+          y: 0,
+          stagger: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
+      tlIn.to(
+        artistImage,
+        {
+          yPercent: 0,
+          duration: 1,
+          ease: "expo.out",
+        },
+        "<"
+      );
+      if (newSourceLinkSplit) {
+        tlIn.to(
+          newSourceLinkSplit.words,
+          {
+            y: 0,
+            duration: 1,
+            ease: "expo.out",
+          },
+          "<"
+        );
+      }
+    });
   }
 
   // Fonction pour mettre à jour les boutons de navigation
@@ -112,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Animation d'ouverture du détail
   function openArtworkDetail(card, index) {
-    fillArtworkDetail(card, index);
+    fillArtworkDetailInitial(card, index);
 
     // Scroll vers le haut
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -214,16 +464,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let isSlideshow = false;
 
   btnSlideshow.addEventListener("click", () => {
-    console.log(isSlideshow);
     if (!isSlideshow) {
-      console.log("STOP SLIDESHOW");
       //change text to STOP SLIDESHOW
       btnSlideshow.querySelector(".btn-slideshow-text").textContent =
         "STOP SLIDESHOW";
       openArtworkDetail(artworkCards[0], 0);
       isSlideshow = true;
     } else {
-      console.log("START SLIDESHOW");
       isSlideshow = false;
       btnSlideshow.querySelector(".btn-slideshow-text").textContent =
         "START SLIDESHOW";

@@ -8,6 +8,8 @@ function galleria_enqueue_assets()
     wp_enqueue_script('gsap', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', [], null, true);
     wp_enqueue_script('flip', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js', ['gsap'], null, true);
     wp_enqueue_script('smoothscroll', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js', ['gsap'], null, true);
+    //split text
+    wp_enqueue_script('splittext', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js', ['gsap'], null, true);
 
     // Scripts du thème (séparés par fonctionnalité)
     wp_enqueue_script('galleria-header', get_template_directory_uri() . '/assets/js/header-animation.js', ['gsap'], '1.0', true);

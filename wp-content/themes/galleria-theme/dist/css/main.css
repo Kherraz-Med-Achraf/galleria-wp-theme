@@ -281,6 +281,23 @@ header .btn-slideshow {
     column-count: 4;
   }
 }
+.char {
+  display: inline-block;
+  position: relative;
+}
+
+.word {
+  display: inline-block;
+  position: relative;
+  white-space: pre-wrap;
+}
+
+.line {
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+
 .artwork-detail {
   position: relative;
   z-index: 10;
@@ -290,7 +307,6 @@ header .btn-slideshow {
   padding: 24px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
   max-width: 375px;
   margin: 0 auto 100px auto;
 }
@@ -299,16 +315,16 @@ header .btn-slideshow {
   position: relative;
   margin-bottom: 112px;
 }
+.artwork-detail .detail-image-wrapper .artwork-image-wrapper {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
 .artwork-detail .detail-image-wrapper .artwork-image {
   width: 100%;
   height: 280px;
   object-fit: cover;
   cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.artwork-detail .detail-image-wrapper .artwork-image:hover {
-  transform: scale(1.02);
-  filter: brightness(0.95);
 }
 .artwork-detail .detail-image-wrapper .title-wrapper {
   position: absolute;
@@ -321,6 +337,7 @@ header .btn-slideshow {
   flex-direction: column;
   justify-content: flex-start;
   gap: 8px;
+  overflow: hidden;
 }
 .artwork-detail .detail-image-wrapper .title-wrapper .title {
   font-family: "Libre Baskerville", serif;
@@ -328,6 +345,7 @@ header .btn-slideshow {
   font-size: 24px;
   line-height: 125%;
   letter-spacing: 0px;
+  overflow: hidden;
 }
 .artwork-detail .detail-image-wrapper .title-wrapper .artist {
   font-family: "Libre Baskerville", serif;
@@ -336,13 +354,19 @@ header .btn-slideshow {
   line-height: 135%;
   letter-spacing: 0px;
   color: #7d7d7d;
+  overflow: hidden;
 }
-.artwork-detail .detail-image-wrapper .artist-image {
+.artwork-detail .detail-image-wrapper .artist-image-wrapper {
+  overflow: hidden;
   position: absolute;
   width: 64px;
   height: 64px;
   top: 328px;
   left: 16px;
+}
+.artwork-detail .detail-image-wrapper .artist-image {
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 .artwork-detail .detail-info {
@@ -360,6 +384,7 @@ header .btn-slideshow {
   top: -64px;
   right: 0;
   z-index: -1;
+  overflow: hidden;
 }
 .artwork-detail .detail-info .detail-description {
   font-family: "Libre Baskerville", serif;
@@ -369,6 +394,7 @@ header .btn-slideshow {
   letter-spacing: 0px;
   color: #7d7d7d;
   margin-bottom: 64px;
+  overflow: hidden;
 }
 .artwork-detail .detail-info .detail-source {
   font-family: "Libre Baskerville", serif;
@@ -378,6 +404,7 @@ header .btn-slideshow {
   letter-spacing: 2px;
   color: #7d7d7d;
   text-decoration: none;
+  overflow: hidden;
 }
 
 .slide-controls {
@@ -459,6 +486,9 @@ header .btn-slideshow {
   .artwork-detail .detail-image-wrapper {
     margin-bottom: 64px;
   }
+  .artwork-detail .detail-image-wrapper .artwork-image-wrapper {
+    height: 500px;
+  }
   .artwork-detail .detail-image-wrapper .artwork-image {
     width: 475px;
     height: 500px;
@@ -485,12 +515,15 @@ header .btn-slideshow {
     letter-spacing: 0px;
     color: #7d7d7d;
   }
-  .artwork-detail .detail-image-wrapper .artist-image {
+  .artwork-detail .detail-image-wrapper .artist-image-wrapper {
     width: 128px;
     height: 128px;
     top: 236px;
     left: 503px;
-    object-fit: contain;
+  }
+  .artwork-detail .detail-image-wrapper .artist-image {
+    width: 128px;
+    height: 128px;
   }
   .artwork-detail .detail-info {
     margin-top: 74px;
@@ -557,16 +590,18 @@ header .btn-slideshow {
   .artwork-detail .detail-image-wrapper {
     width: fit-content;
   }
+  .artwork-detail .detail-image-wrapper .artwork-image-wrapper {
+    height: 560px;
+  }
   .artwork-detail .detail-image-wrapper .artwork-image {
     height: 560px;
   }
   .artwork-detail .detail-image-wrapper .title-wrapper {
     left: 403px;
   }
-  .artwork-detail .detail-image-wrapper .artist-image {
+  .artwork-detail .detail-image-wrapper .artist-image-wrapper {
     top: 496px;
     left: 499px;
-    object-fit: contain;
   }
   .artwork-detail .detail-info {
     margin-top: 110px;
