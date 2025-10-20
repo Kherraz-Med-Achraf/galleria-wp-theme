@@ -18,9 +18,9 @@ function galleria_enqueue_assets()
 }
 add_action('wp_enqueue_scripts', 'galleria_enqueue_assets');
 
-// Support images, menus, logo personnalisé...
 add_theme_support('post-thumbnails');
 add_theme_support('menus');
+add_theme_support('title-tag');
 add_theme_support('custom-logo', [
     'height' => 100,
     'width' => 400,
