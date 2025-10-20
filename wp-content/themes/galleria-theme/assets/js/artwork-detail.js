@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scale: 0,
       duration: 0.5,
       stagger: {
-        each: 0.1,
+        each: 0.05,
         from: index,
       },
       ease: "power2.inOut",
@@ -521,7 +521,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scale: 1,
       duration: 0.5,
       stagger: {
-        each: 0.1,
+        each: 0.05,
       },
       ease: "power2.out",
       onStart: () => {
