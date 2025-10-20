@@ -276,6 +276,7 @@ header .btn-slideshow:hover {
     padding: 42px 54px;
     max-width: 768px;
     column-count: 2;
+    gap: 40px;
   }
 }
 @media (min-width: 1440px) {

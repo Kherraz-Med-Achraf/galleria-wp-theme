@@ -1,115 +1,90 @@
-// ========== MASONRY LAYOUT WITH FLIP ANIMATION ==========
+// ========== GRID LAYOUT WITH FLIP ANIMATION ==========
 document.addEventListener("DOMContentLoaded", function () {
-  // Enregistrer le plugin Flip
-  gsap.registerPlugin(Flip);
-
   const container = document.querySelector(".artworks-list");
+  const items = document.querySelectorAll(".artwork-card");
+  if (items.length === 0 || !container) return;
 
-  if (!container) return;
+  // Fonction pour détecter si on est sur desktop
+  const isDesktop = () => window.innerWidth >= 768;
 
-  const items = Array.from(container.querySelectorAll(".artwork-card"));
-  if (items.length === 0) return;
+  // Ne procéder aux réorganisations que sur desktop
+  if (!isDesktop()) {
+    // Animation d'apparition au chargement (sans réorganisation)
+    gsap.to(items, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      stagger: 0.05,
+      ease: "power3.out",
+      delay: 0.3,
+    });
+    return;
+  }
 
-  let isFirstLoad = true;
+  // Réorganiser les éléments : transformer colonnes CSS en lignes
+  const numberOfColumns = 4;
+  const itemsArray = Array.from(items);
+  const totalItems = itemsArray.length;
 
-  function applyMasonryLayout() {
-    const tabletBreakpoint = 768;
-    const desktopBreakpoint = 1440;
-    let numColumns = 1;
+  // Calculer la distribution CSS column-count (colonnes équilibrées)
+  const baseItemsPerColumn = Math.floor(totalItems / numberOfColumns);
+  const extraItems = totalItems % numberOfColumns;
 
-    if (window.innerWidth >= desktopBreakpoint) {
-      numColumns = 4;
-    } else if (window.innerWidth >= tabletBreakpoint) {
-      numColumns = 2;
-    }
-
-    // On capture l'état (positions, dimensions) avant de faire des changements
-    const state = Flip.getState(items);
-
-    // On applique la nouvelle disposition
-    if (numColumns <= 1) {
-      // Pour mobile, on laisse le CSS gérer la disposition en une colonne
-      // On réinitialise les styles en ligne pour ne pas interférer
-      container.style.position = "";
-      container.style.height = "";
-      items.forEach((item) => {
-        item.style.position = "";
-        item.style.top = "";
-        item.style.left = "";
-        item.style.width = "";
-        item.style.transform = "";
-      });
-    } else {
-      // Pour tablette et bureau, on calcule la disposition en JS
-      container.style.position = "relative";
-      const gap = 40;
-
-      let padding, leftOffset, topOffset;
-
-      if (window.innerWidth >= desktopBreakpoint) {
-        // Desktop
-        padding = 80;
-        leftOffset = 40;
-        topOffset = 40;
-      } else {
-        // Tablet
-        padding = 108;
-        leftOffset = 54;
-        topOffset = 42;
+  // Créer un tableau avec le nombre d'éléments par colonne CSS
+  const cssColumns = [];
+  let currentIndex = 0;
+  for (let i = 0; i < numberOfColumns; i++) {
+    const itemsInThisColumn = baseItemsPerColumn + (i < extraItems ? 1 : 0);
+    const columnItems = [];
+    for (let j = 0; j < itemsInThisColumn; j++) {
+      if (currentIndex < totalItems) {
+        columnItems.push(itemsArray[currentIndex]);
+        currentIndex++;
       }
-
-      const containerWidth = container.offsetWidth - padding; // 108px is the padding of the container
-      const totalGapWidth = (numColumns - 1) * gap;
-      const colWidth = (containerWidth - totalGapWidth) / numColumns;
-
-      const columnHeights = Array(numColumns).fill(0);
-
-      items.forEach((item) => {
-        const minHeight = Math.min(...columnHeights);
-        const colIndex = columnHeights.indexOf(minHeight);
-
-        item.style.position = "absolute";
-        item.style.width = `${colWidth}px`;
-        item.style.left = `${colIndex * (colWidth + gap) + leftOffset}px`;
-        item.style.top = `${minHeight + topOffset}px`;
-
-        columnHeights[colIndex] += item.offsetHeight + gap;
-      });
-
-      const maxHeight = Math.max(...columnHeights);
-      container.style.height = `${maxHeight - gap}px`;
     }
+    cssColumns.push(columnItems);
+  }
 
-    // On anime ou on révèle les éléments
-    if (isFirstLoad) {
-      // Au premier chargement, on ne fait qu'une animation d'apparition (fade in)
-      gsap.to(items, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.05,
-        ease: "power3.out",
-        delay: 0.5,
-      });
-      isFirstLoad = false;
-    } else {
-      // Au redimensionnement, on anime le changement de disposition avec Flip
-      Flip.from(state, {
-        duration: 0.8,
-        stagger: 0.05,
-        ease: "expo.out",
-        absolute: true,
-      });
+  // Transposer : lire par lignes au lieu de colonnes
+  const maxRows = Math.max(...cssColumns.map((col) => col.length));
+  const reorderedItems = [];
+  for (let row = 0; row < maxRows; row++) {
+    for (let col = 0; col < numberOfColumns; col++) {
+      if (cssColumns[col][row]) {
+        reorderedItems.push(cssColumns[col][row]);
+      }
     }
   }
 
-  // On attend que les images soient chargées pour que les hauteurs soient correctes
-  window.addEventListener("load", applyMasonryLayout);
+  // Réorganiser dans le DOM (invisible pour l'utilisateur)
+  reorderedItems.forEach((item) => container.appendChild(item));
 
-  // On recalcule la disposition au redimensionnement
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(applyMasonryLayout, 150);
+  // Réorganiser manuellement les 4 derniers éléments : 1,2,3,4 devient 2,3,4,1
+  const reorderedItemsLength = reorderedItems.length;
+  if (reorderedItemsLength >= 4) {
+    const lastFourItems = reorderedItems.slice(-4);
+    // Réorganiser : prendre le deuxième, troisième, quatrième, puis le premier
+    const reorderedLastFour = [
+      lastFourItems[1],
+      lastFourItems[2],
+      lastFourItems[3],
+      lastFourItems[0],
+    ];
+
+    // Supprimer les 4 derniers éléments actuels
+    lastFourItems.forEach((item) => container.removeChild(item));
+
+    // Ajouter les éléments réorganisés
+    reorderedLastFour.forEach((item) => container.appendChild(item));
+  }
+
+  // Animation d'apparition au chargement
+  gsap.to(items, {
+    opacity: 1,
+    scale: 1,
+    duration: 0.8,
+    stagger: 0.05,
+    ease: "power3.out",
+    delay: 0.3,
   });
 });
